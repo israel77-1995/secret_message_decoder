@@ -17,7 +17,7 @@ def fetch_data(url):
 
             # ✅ Return only the visible text (removes HTML/JS)
             clean_text = soup.get_text(separator='\n').strip() 
-            return clean_text[301:]
+            return clean_text[300:]
 
         else:
             print("Failed to fetch content.")
@@ -31,12 +31,7 @@ def fetch_data(url):
 print(fetch_data("https://docs.google.com/document/d/e/2PACX-1vRMx5YQlZNa3ra8dYYxmv-QIQ3YJe8tbI3kqcuC7lQiZm-CSEznKfN_HYNSpoXcZIV3Y_O3YoUB1ecq/pub"))
 
 
-def parse_data(data):
-  
-    data_lines = data.splitlines()
-
-    print(f"Number of lines in data: {len(data_lines)}")
-    print(data_lines)
+parsed_lines = parse_data(raw_text)
     return data_lines
 # Test the function
 url = "https://docs.google.com/document/d/e/2PACX-1vRMx5YQlZNa3ra8dYYxmv-QIQ3YJe8tbI3kqcuC7lQiZm-CSEznKfN_HYNSpoXcZIV3Y_O3YoUB1ecq/pub"
