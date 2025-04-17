@@ -7,7 +7,7 @@ class TestMessageDecoder(unittest.TestCase):
         url = "https://jsonplaceholder.typicode.com/posts"
         data = fetch_data(url)
         self.assertIsNotNone(data, "Data can not be None")
-        self.assertIsInstance(data, list, "Data should be a list")
+        self.assertIsInstance(data, str, "Data should be a string")
         self.assertGreater(len(data), 0, "Data should not be empty")
         
 

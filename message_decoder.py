@@ -3,33 +3,26 @@ from bs4 import BeautifulSoup
 
 def fetch_data(url):
     try:
-        print(f"Fetching data from: {url}")  # Show the URL being passed
+        print(f"Fetching data from: {url}")
 
-        # Send the GET request
+        # Make the HTTP request
         response = requests.get(url)
-        print(f"Status Code: {response.status_code}")  # Check the status code
+        print(f"Status Code: {response.status_code}")
 
-        # If the request was successful, parse the HTML
         if response.status_code == 200:
             print("Parsing the HTML content...")
+
+            # Parse the HTML
             soup = BeautifulSoup(response.text, 'html.parser')
 
-            # You can print the whole parsed HTML to inspect it
-            #print(f"This is the structure{soup.prettify()}")  # Uncomment this to see the structure
+            # ✅ Return only the visible text (removes HTML/JS)
+            clean_text = soup.get_text(separator='\n').strip() 
+            return clean_text[301:]
 
-            # Extract the data you need from the HTML.
-            # For example, if the characters are in a specific div, you could do something like:
-            # data = soup.find_all("div", class_="some-class-name")
-
-            # As an example, let's try printing all text inside <p> tags (just to inspect)
-            paragraphs = soup.find_all('p')
-            for p in paragraphs:
-                print(p.get_text())
-
-            return soup  # Or return the extracted content
         else:
-            print(f"Failed to fetch content, status code: {response.status_code}")
+            print("Failed to fetch content.")
             return None
+
     except requests.exceptions.RequestException as e:
         print(f"Error fetching data: {e}")
         return None
@@ -38,8 +31,14 @@ def fetch_data(url):
 print(fetch_data("https://docs.google.com/document/d/e/2PACX-1vRMx5YQlZNa3ra8dYYxmv-QIQ3YJe8tbI3kqcuC7lQiZm-CSEznKfN_HYNSpoXcZIV3Y_O3YoUB1ecq/pub"))
 
 
-
 def parse_data(data):
-    # Check if the data is a list
-    pass
+  
+    data_lines = data.splitlines()
 
+    print(f"Number of lines in data: {len(data_lines)}")
+    print(data_lines)
+    return data_lines
+# Test the function
+url = "https://docs.google.com/document/d/e/2PACX-1vRMx5YQlZNa3ra8dYYxmv-QIQ3YJe8tbI3kqcuC7lQiZm-CSEznKfN_HYNSpoXcZIV3Y_O3YoUB1ecq/pub"
+raw_text = fetch_data(url)
+parsed_lines = parse_data(raw_text)
