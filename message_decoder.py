@@ -11,7 +11,7 @@ def fetch_data(url):
         response = requests.get(url)
         if response.status_code == 200:
             soup = BeautifulSoup(response.text, 'html.parser')
-            return soup.get_text(separator='\n').strip()[301:]
+            return soup.get_text(separator='\n').strip()[305:]
         else:
             print("Failed to fetch content.")
             return None
